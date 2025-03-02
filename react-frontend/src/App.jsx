@@ -8,20 +8,41 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 
+
+
+
+
 function App() {
   const [count, setCount] = useState(0)
+
   const App = () => {
     return (
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/" element={<Login />} />
         </Routes>
       </Router>
     );
   };
+  
   return (
     <>
       <div>
